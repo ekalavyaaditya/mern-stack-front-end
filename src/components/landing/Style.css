@@ -1,0 +1,25 @@
+.bgcontainer {
+  background-image: url("../../assest/homebackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  overflow: hidden;
+}
+.bgcontainer h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 180px;
+  color: var(--SecondaryColor);
+  font-family: var(--fontOne);
+  font-size: 90px;
+}
+.bgcontainer p {
+  font-family: var(--fontTwo);
+  text-align: center;
+  color: var(--TextlighColor);
+  font-weight: bolder;
+  color: var(--PrimaryColor);
+}

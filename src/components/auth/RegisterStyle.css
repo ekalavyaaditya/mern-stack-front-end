@@ -1,0 +1,35 @@
+.Regbg{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("../../assest/loginbackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.Main {
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blur);
+  backdrop-filter: blur(15px);
+  width: 35%;
+  height: auto;
+  border: solid 1px var(--blur);
+  border-radius: 5%;
+}
+.heading{
+  font-family: var(--fontOne);
+}
+.pgr {
+  text-align: end;
+  font-family: var(--fontTwo);
+  margin-right: 5px;
+}
+Input{
+  margin-left: 10px;
+}
+.Rbtn {
+  background-color: var(--SecondaryColor)!important;
+  color: var(--White)!important;
+  margin: auto!important;
+ }

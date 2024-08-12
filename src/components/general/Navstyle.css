@@ -1,0 +1,39 @@
+.navbarstyle {
+  display: flex;
+  background-color: var(--blur);
+  backdrop-filter: blur(10px) !important;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  z-index: 1;
+}
+
+.bg {
+  margin-top: 0px;
+  color: var(--SecondaryColor);
+  font-family: var(--fontOne);
+  font-size: 39px;
+  text-decoration: none;
+  text-align: left;
+  font-weight: bolder;
+  margin-bottom: 0px;
+  margin-right: auto;
+}
+
+.link {
+  align-content: end;
+  font-weight: bold;
+  font-size: 18px;
+  text-decoration: none;
+  color: var(--PrimaryColor);
+  font-family: var(--fontTwo);
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.navbarstyle a:hover {
+  text-shadow: 2px 2px 2px var(--AccentColor1);
+  color: var(--AccentColor1);
+  text-decoration: none;
+}
