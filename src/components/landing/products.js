@@ -40,6 +40,7 @@ class Products extends Component {
           {products.map((product, index) => (
             <Product
               key={index}
+              link={`product/${product._id}`}
               product={product}
               description={this.productDetails(product)}
               buttonName="Add to Card"

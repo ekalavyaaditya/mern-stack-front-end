@@ -1,6 +1,7 @@
 import axios from "axios";
 import { GET_PRODUCT, GET_PRODUCTS, PORDUCT_ERROR } from "./types";
 import { getServer } from "../utill";
+
 export const getproduct = () => async (dispatch) => {
   try {
     const res = await axios.get(`${getServer()}/api/products`);
@@ -35,8 +36,9 @@ export const addproduct = (productData, history) => async (dispatch) => {
 
 export const getInstructorProduct = (id) => async (dispatch) => {
   try {
-    // console.log("id==>>",id)
-    const res = await axios.get(`${getServer()}/api/products/instructors/${id}`);
+    const res = await axios.get(
+      `${getServer()}/api/products/instructors/${id}`
+    );
     dispatch({
       type: GET_PRODUCTS,
       payload: res.data,
@@ -50,10 +52,9 @@ export const getInstructorProduct = (id) => async (dispatch) => {
   }
 };
 
-
-export const getProduct = (id) => async (dispatch) => {
+export const getProductById = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`${getServer()}/api/product/${id}`);
+    const res = await axios.get(`${getServer()}/api/products/${id}`);
     dispatch({
       type: GET_PRODUCT,
       payload: res.data,

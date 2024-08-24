@@ -11,7 +11,7 @@ import {
 } from "./types";
 import { getServer } from "../utill";
 import setAuthToken from "../utill/setAuthToken";
-//set a user
+
 export const setCurrentUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);

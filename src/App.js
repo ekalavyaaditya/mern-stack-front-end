@@ -14,6 +14,7 @@ import Login from "./components/auth/Login";
 import Landing from "./components/landing";
 import AddProfile from "./components/dashboard/components/AddProfile";
 import Profile from "./components/dashboard/components/Profile.js";
+import ProductDetails from "./components/landing/ProductDetails.js";
 import "./App.css";
 
 if (localStorage.token) {
@@ -25,17 +26,23 @@ function App() {
     store.dispatch(setCurrentUser());
   }, []);
 
+  console.log("store", store);
+
   return (
     <Provider store={store}>
       <Router>
         <div className="App">
           <Route exact path="/" component={Landing} />
+          <Route exact path="/product/:id" component={ProductDetails} />
           <Switch>
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <ProtectedRoute path="/dashboard" component={Dashboard} />
             <ProtectedRoute path="/dashboard/home" component={Home} />
-            <ProtectedRoute path="/dashboard/addproduct" component={AddProduct} />
+            <ProtectedRoute
+              path="/dashboard/addproduct"
+              component={AddProduct}
+            />
             <ProtectedRoute path="/dashboard/product" component={Product} />
             <ProtectedRoute path="/dashboard/profile" component={Profile} />
             <ProtectedRoute
