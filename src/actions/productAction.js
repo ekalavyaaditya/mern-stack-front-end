@@ -43,7 +43,6 @@ export const getInstructorProduct = (id) => async (dispatch) => {
       type: GET_PRODUCTS,
       payload: res.data,
     });
-    // debugger;
   } catch (error) {
     dispatch({
       type: PORDUCT_ERROR,

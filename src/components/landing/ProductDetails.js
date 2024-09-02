@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import { getProductById } from "../../actions/productAction";
 import { connect } from "react-redux";
-import { Flex, Spin } from "antd";
+import Navbar from "../general/Navbar";
+import { Flex, Spin,Button } from "antd";
+import "./productDetails.css";
+import image from "../../assest/homebackground.jpg";
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -13,7 +16,6 @@ class ProductDetails extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    console.log(id);
     this.props.getProductById(id);
   }
 
@@ -24,22 +26,23 @@ class ProductDetails extends Component {
   }
 
   render() {
-    console.log(this.props)
     const { product } = this.state;
     return (
-      <div className="container">
+      <div className="containerProductDetails">
+        <Navbar/>
         {product ? (
-          <div className="row">
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <img src="/assest/homebackground" alt="product" />
+          <div className="rowProductDetails">
+            <div className="imgDiv">
+            <img src={image} alt={product.name} className="product-image" />
             </div>
-            <div className="col-lg-6 col-md-6 col-sm-6">
-              <p>{product.name}</p>
-              <p>{product.description}</p>
-              <p>{product.category}</p>
-              <p>{product.price}</p>
-              <p>{product.brand}</p>
-              <button>Add to cart</button>
+            <div className="detailsProduct">
+            <h1 className="product-name">{product.name}</h1>
+              <p className="product-description">{product.description}</p>
+              <p className="product-brand">Brand: {product.brand}</p>
+              <p className="product-category">Category: {product.category}</p>
+              <p className="product-quantity">Quantity{product.quantity}</p>
+              <p className="product-price">${product.price}</p>
+              <Button  type="primary">add to cart</Button>
             </div>
           </div>
         ) : (

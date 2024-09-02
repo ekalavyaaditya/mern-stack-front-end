@@ -16,7 +16,7 @@ const productReducers = (state = initialState, action) => {
     case GET_PRODUCT:
       return {
         ...state,
-        products: payload,
+        product: payload,
       };
     case PORDUCT_ERROR:
       return {

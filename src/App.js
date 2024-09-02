@@ -26,8 +26,6 @@ function App() {
     store.dispatch(setCurrentUser());
   }, []);
 
-  console.log("store", store);
-
   return (
     <Provider store={store}>
       <Router>

@@ -1,0 +1,88 @@
+.containerProductDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("../../assest/loginbackground.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.rowProductDetails{
+  display: flex;
+  column-gap: 35px;
+  flex-wrap: wrap;
+  height: 45%;
+  width: 60%;
+  background-color: var(--blur);
+  backdrop-filter: blur(10px) !important;
+}
+
+.imgDiv{
+  height: 100%;
+}
+
+.detailsProduct{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+}
+
+.product-image {
+  max-width: 400px;
+  width: 100%;
+  height: -webkit-fill-available;
+  border-radius: 5px;
+}
+
+.product-name {
+  text-align: left;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: black;
+}
+
+.product-price {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: black;
+}
+
+.product-description,
+.product-category,
+.product-quantity,
+.product-brand {
+  font-size: 16px;
+  color: black;
+  margin: 5px 0;
+}
+
+.product-details {
+  max-width: 500px;
+}
+
+.ant-btn-primary {
+  width: auto;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.ant-btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
