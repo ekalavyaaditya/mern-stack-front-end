@@ -47,6 +47,7 @@ class Products extends Component {
         {merachantProducts.map((product) => (
           <Product
             className="product"
+            link={`/product/${product._id}`}
             key={product._id}
             product={product}
             description={this.productDetails(product)}
