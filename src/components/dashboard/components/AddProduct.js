@@ -119,7 +119,6 @@ class Addproduct extends Component {
         <button
           className="btn btn-primary"
           onClick={this.onSubmit}
-          style={{ textAlign: "center" }}
         >
           Submit
         </button>
