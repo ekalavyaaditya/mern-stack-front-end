@@ -37,7 +37,7 @@ class Profile extends Component {
   componentDidMount() {
     this.props.getProfile(decodeUser().user.id);
   }
-  
+
   componentDidUpdate(prevProps) {
     if (
       this.props.profile.profile &&
@@ -82,9 +82,9 @@ class Profile extends Component {
 
   confirm = (e) => {
     e.preventDefault();
-    this.props.deletaAccount(this.props.history)
+    this.props.deletaAccount(this.props.history);
     this.setState({ isAuthenticated: false });
-    message.warning ("Task deleted successfully");
+    message.warning("Task deleted successfully");
   };
 
   displayProfile = (profile) => {
@@ -304,7 +304,7 @@ class Profile extends Component {
             <Link
               className="btn btn-primary"
               to="/dashboard/addprofile"
-              style={{ fontSize: "10px" }}
+              style={{ fontSize: "12px", border: "none" }}
             >
               Create Profile
             </Link>

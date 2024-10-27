@@ -1,10 +1,10 @@
 import React from "react";
-import { Card, Button } from "antd";
+import { Card } from "antd";
 import propTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const { Meta } = Card;
-const Product = ({ product, description, buttonName, link }) => {
+const Product = ({ product, description, link }) => {
   return (
     <div>
       <Link to={link}>
@@ -19,7 +19,6 @@ const Product = ({ product, description, buttonName, link }) => {
           }
         >
           <Meta title={product.name} description={description} />
-          <Button type="primary">{buttonName}</Button>
         </Card>
       </Link>
     </div>
