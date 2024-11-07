@@ -43,10 +43,9 @@ class Products extends Component {
   render() {
     const { merachantProducts } = this.state;
     return (
-      <div className="productRow">
+      <div style={{ width: 'auto', display: 'flex', flexWrap: 'wrap', }}>
         {merachantProducts.map((product) => (
           <Product
-            className="product"
             link={`/product/${product._id}`}
             key={product._id}
             product={product}

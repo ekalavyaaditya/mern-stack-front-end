@@ -36,7 +36,6 @@ class Products extends Component {
     const { products } = this.state;
     return (
       <div className="productContainer">
-        <div className="productRow">
           {products.map((product, index) => (
             <Product
               key={index}
@@ -45,7 +44,6 @@ class Products extends Component {
               description={this.productDetails(product)}
             />
           ))}
-        </div>
       </div>
     );
   }

@@ -3,6 +3,8 @@ import { Provider } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import store from "./store";
 import setAuthToken from "./utill/setAuthToken";
+import {decodeUser} from './utill';
+import {addToCart} from './actions/cartAction.js'
 import { setCurrentUser } from "./actions/authAction";
 import ProtectedRoute from "./components/general/protectedRoute";
 import Dashboard from "./components/dashboard";
@@ -15,6 +17,7 @@ import Landing from "./components/landing";
 import AddProfile from "./components/dashboard/components/AddProfile";
 import Profile from "./components/dashboard/components/Profile.js";
 import ProductDetails from "./components/landing/ProductDetails.js";
+import Cart from "./components/cart/Cart.js";
 import "./App.css";
 
 if (localStorage.token) {
@@ -26,6 +29,17 @@ function App() {
     store.dispatch(setCurrentUser());
   }, []);
 
+  const grabProductFromStorage = () => {
+    const userId = decodeUser().user.id;
+    const cartProducts = JSON.parse(localStorage.getItem("product"))
+    const context = {products: cartProducts, userId}
+    store.dispatch(addToCart(context));
+    localStorage.removeItem("products");
+  };
+
+  if(localStorage.getItem("token") && localStorage.getItem("products")){
+    grabProductFromStorage()
+  }
   return (
     <Provider store={store}>
       <Router>
@@ -41,6 +55,7 @@ function App() {
               path="/dashboard/addproduct"
               component={AddProduct}
             />
+            <ProtectedRoute exact path="/cart" component={Cart} />
             <ProtectedRoute path="/dashboard/product" component={Product} />
             <ProtectedRoute path="/dashboard/profile" component={Profile} />
             <ProtectedRoute
