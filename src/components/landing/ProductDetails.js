@@ -77,18 +77,43 @@ class ProductDetails extends Component {
           />
           <center>
             <br />
-            <Link to="/cart">
+            <Link to="/cart?redirect=/cart">
               <Button
                 key="submit"
                 type="primary"
               >
                 go to cart
-              </Button>            </Link>
+              </Button>            
+            </Link>
           </center>
         </div>
       </Modal>
     );
   };
+
+  // it is form chartgpt
+  // async addProductToCart(product) {
+  //   // Check if the user is signed in
+  //   if (!localStorage.getItem("token")) {
+  //     const products = JSON.parse(localStorage.getItem("products")) || [];
+
+  //     // Check if the product already exists in local storage
+  //     if (!products.includes(product._id)) {
+  //       products.push(product._id); // Add only if it's not a duplicate
+  //       localStorage.setItem("products", JSON.stringify(products));
+  //     }
+  //     this.showModal();
+  //     return;
+  //   }
+
+  //   // If user is signed in, use the API
+  //   const userId = decodeUser().user.id;
+  //   const context = { products: [product._id], userId };
+
+  //   // Assuming `addToCart` handles duplicates on the server side
+  //   await this.props.addToCart(context);
+  //   this.showModal();
+  // }
 
   async addProductToCart(product) {
     //check id user is signed in
