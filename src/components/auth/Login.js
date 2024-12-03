@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import { message } from "antd";
 import Input from "../general/Input";
 import { login } from "../../actions/authAction";
+// import { decodeUser } from "../../utill";
+import { addToCart } from "../../actions/cartAction";
 import { Button } from "@mui/material";
 import Navbar from "../general/Navbar";
 import "./Login.css";
@@ -50,11 +52,15 @@ class Login extends Component {
   }
   render() {
     const { email, password } = this.state;
+    const search = this.props.location.search;
+    let split = search.split("redirect=");
+    const redirect = split[split.length - 1];
+    const hasRirect = redirect.length > 0 && search.includes("redirect");
     return (
       <div className="logbg">
         <Navbar />
         <div className="log">
-          <form style={{padding: "10px"}}>
+          <form style={{ padding: "10px" }}>
             <h1>Sign In</h1>
             <p>Sing Into Your Account</p>
             <Input
@@ -77,7 +83,10 @@ class Login extends Component {
               Sing In
             </Button>
             <p className="my-1">
-              Dont Have an account?<Link to="/register">Sign Up</Link>
+              Dont Have an account?
+              <Link to={`/register?role=customer${hasRirect ? "&redirect=" + redirect : ""}`}>
+                Sign Up
+              </Link>
             </p>
           </form>
         </div>
@@ -90,4 +99,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login, addToCart })(Login);

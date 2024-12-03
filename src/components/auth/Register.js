@@ -6,6 +6,8 @@ import "./RegisterStyle.css";
 import { message } from "antd";
 import { Button } from "@mui/material";
 import Navbar from "../general/Navbar";
+import { decodeUser } from "../../utill";
+import { addToCart } from "../../actions/cartAction";
 
 class Register extends Component {
   constructor() {
@@ -57,6 +59,11 @@ class Register extends Component {
       return;
     }
 
+    const search = this.props.location.search;
+    let split = search.split("redirect=");
+    const hasRirect = search.includes("redirect=");
+    split = split[split.length - 1];
+
     const newUser = {
       name,
       email,
@@ -66,8 +73,24 @@ class Register extends Component {
     this.props.register(newUser);
     const success = this.props.register(newUser);
     if (success) {
-      message.success("Thank you for registering");
-      this.redirectToHome();
+      if (split && hasRirect) {
+        if (
+          split === "/cart" &&
+          localStorage.getItem("token") &&
+          localStorage.getItem("products")
+        ) {
+          const userID = decodeUser().user.id;
+          const carProducts = JSON.parse(localStorage.getItem("products"))
+          const context = { product: carProducts, userID };
+          this.props.addToCart(context);
+          localStorage.removeItem("products");
+        }
+        this.props.history.push(split);
+      }
+      else {
+        message.success("Thank you for registering");
+        this.redirectToHome();
+      }
     }
   }
 
@@ -75,7 +98,7 @@ class Register extends Component {
     const { name, password, password2, email } = this.state;
     return (
       <div className="Regbg">
-        <Navbar/>
+        <Navbar />
         <div className="Main">
           <h1 className="heading">Register</h1>
           <p className="pgr">Create Your Account</p>
@@ -113,7 +136,7 @@ class Register extends Component {
             />
           </div>
           <br />
-          <Button type="primary" className="Rbtn" onClick={this.onSubmit} style={{display: "flex"}}>
+          <Button type="primary" className="Rbtn" onClick={this.onSubmit} style={{ display: "flex" }}>
             Register
           </Button>
           <br />
@@ -127,4 +150,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, addToCart })(Register);

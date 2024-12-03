@@ -4,7 +4,7 @@ import { addToCart } from "../../actions/cartAction";
 import { connect } from "react-redux";
 import Navbar from "../general/Navbar";
 import { Link } from "react-router-dom";
-import { isEmpty } from "lodash";
+// import { isEmpty } from "lodash";
 import { decodeUser } from "../../utill";
 import { Flex, Spin, Button, Modal, Alert } from "antd";
 import "./productDetails.css";
@@ -92,50 +92,50 @@ class ProductDetails extends Component {
   };
 
   // it is form chartgpt
-  // async addProductToCart(product) {
-  //   // Check if the user is signed in
-  //   if (!localStorage.getItem("token")) {
-  //     const products = JSON.parse(localStorage.getItem("products")) || [];
-
-  //     // Check if the product already exists in local storage
-  //     if (!products.includes(product._id)) {
-  //       products.push(product._id); // Add only if it's not a duplicate
-  //       localStorage.setItem("products", JSON.stringify(products));
-  //     }
-  //     this.showModal();
-  //     return;
-  //   }
-
-  //   // If user is signed in, use the API
-  //   const userId = decodeUser().user.id;
-  //   const context = { products: [product._id], userId };
-
-  //   // Assuming `addToCart` handles duplicates on the server side
-  //   await this.props.addToCart(context);
-  //   this.showModal();
-  // }
-
   async addProductToCart(product) {
-    //check id user is signed in
-    //if not use localstorage
+    // Check if the user is signed in
     if (!localStorage.getItem("token")) {
-      const productExists = !isEmpty(localStorage.getItem("products"));
-      if (productExists) {
-        const products = JSON.parse(localStorage.getItem("products"));
-        products.push(product._id);
-        this.showModal();
-        return localStorage.setItem("products", JSON.stringify([product._id]));
-      } else {
-        this.showModal();
-        return localStorage.setItem("products", JSON.stringify([product._id]));
+      const products = JSON.parse(localStorage.getItem("products")) || [];
+
+      // Check if the product already exists in local storage
+      if (!products.includes(product._id)) {
+        products.push(product._id); // Add only if it's not a duplicate
+        localStorage.setItem("products", JSON.stringify(products));
       }
+      this.showModal();
+      return;
     }
 
+    // If user is signed in, use the API
     const userId = decodeUser().user.id;
     const context = { products: [product._id], userId };
+
+    // Assuming `addToCart` handles duplicates on the server side
     await this.props.addToCart(context);
     this.showModal();
   }
+
+  // async addProductToCart(product) {
+  //   //check id user is signed in
+  //   //if not use localstorage
+  //   if (!localStorage.getItem("token")) {
+  //     const productExists = !isEmpty(localStorage.getItem("products"));
+  //     if (productExists) {
+  //       const products = JSON.parse(localStorage.getItem("products"));
+  //       products.push(product._id);
+  //       this.showModal();
+  //       return localStorage.setItem("products", JSON.stringify([product._id]));
+  //     } else {
+  //       this.showModal();
+  //       return localStorage.setItem("products", JSON.stringify([product._id]));
+  //     }
+  //   }
+
+  //   const userId = decodeUser().user.id;
+  //   const context = { products: [product._id], userId };
+  //   await this.props.addToCart(context);
+  //   this.showModal();
+  // }
 
   render() {
     const { product } = this.state;

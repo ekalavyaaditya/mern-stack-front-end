@@ -17,14 +17,14 @@ import Landing from "./components/landing";
 import AddProfile from "./components/dashboard/components/AddProfile";
 import Profile from "./components/dashboard/components/Profile.js";
 import ProductDetails from "./components/landing/ProductDetails.js";
-import Cart from "./components/cart/Cart.js";
+import Cart from "./components/cart/Cart.js"
 import "./App.css";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-function App() {
+function App(props) {
   useEffect(() => {
     store.dispatch(setCurrentUser());
   }, []);
@@ -49,28 +49,35 @@ function App() {
           <Route exact path="/" component={Landing} />
           <Route exact path="/product/:id" component={ProductDetails} />
           <Switch>
+            <ProtectedRoute
+              path="/dashboard"
+              exact
+              component={() => (
+                <Dashboard {...props} nestedRoute={Home} />
+              )} />
+            <ProtectedRoute
+              path="/dashboard/addproduct" component={() => (
+                <Dashboard {...props} nestedRoute={AddProduct} />
+              )}
+            />
+            <ProtectedRoute
+              path="/dashboard/product" component={() => (
+                <Dashboard {...props} nestedRoute={Product} />
+              )} />
+            <ProtectedRoute
+              path="/dashboard/profile" component={() => (
+                <Dashboard {...props} nestedRoute={Profile} />
+              )} />
+            <ProtectedRoute
+              path="/dashboard/addprofile" component={() => (
+                <Dashboard {...props} nestedRoute={AddProfile} />
+              )} />
+            <ProtectedRoute
+              path="/cart" component={Cart} />
             <Route
               exact path="/login" component={Login} />
             <Route
               exact path="/register" component={Register} />
-            <ProtectedRoute exact path="/dashboard" component={Dashboard} />
-            <ProtectedRoute
-              exact path="/dashboard/home" component={Home} />
-            <ProtectedRoute
-              exact
-              path="/dashboard/addproduct"
-              component={AddProduct}
-            />
-            <ProtectedRoute
-              exact path="/cart" component={Cart} />
-            <ProtectedRoute
-              exact path="/dashboard/product" component={Product} />
-            <ProtectedRoute
-              exact path="/dashboard/profile" component={Profile} />
-            <ProtectedRoute exact
-              path="/dashboard/addprofile"
-              component={AddProfile}
-            />
           </Switch>
         </div>
       </Router>

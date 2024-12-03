@@ -36,14 +36,14 @@ class Products extends Component {
     const { products } = this.state;
     return (
       <div className="productContainer">
-          {products.map((product, index) => (
-            <Product
-              key={index}
-              link={`product/${product._id}`}
-              product={product}
-              description={this.productDetails(product)}
-            />
-          ))}
+        {products.map((product, index) => (
+          <Product
+            key={index}
+            link={`product/${product._id}`}
+            product={product}
+            description={this.productDetails(product)}
+          />
+        ))}
       </div>
     );
   }

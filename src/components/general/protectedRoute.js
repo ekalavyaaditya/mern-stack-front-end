@@ -1,15 +1,13 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import { useSelector } from "react-redux";
 
-const ProtectedRoute = ({ component: Component, ...rest }) => {
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
-
+const ProtectedRoute = ({ component: Component, auth, ...rest }) => {
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated ? (
+        auth.isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect to={`/login${rest.location.search}`} />
@@ -19,4 +17,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default ProtectedRoute;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps)(ProtectedRoute);
