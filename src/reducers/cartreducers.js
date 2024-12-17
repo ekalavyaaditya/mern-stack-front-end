@@ -1,17 +1,17 @@
 import { GET_CART, ERROR } from "../actions/types";
 
-const initalState = {
+const initialState = {
   cart: {},
-  errors: {},
+  error: {},
 };
 
-export default function (state = initalState, action) {
+function cartReducer(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_CART:
       return {
         ...state,
-        cart: payload.cart,
+        cart: payload.result,
       };
     case ERROR:
       return {
@@ -22,3 +22,5 @@ export default function (state = initalState, action) {
       return state;
   }
 }
+
+export default cartReducer;

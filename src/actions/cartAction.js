@@ -41,7 +41,7 @@ export const getCart = () => (dispatch) => {
     );
 };
 
-export const removeFromCArt = (context) => (dispatch) => {
+export const removeFromCart = (context) => (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",

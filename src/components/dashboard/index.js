@@ -95,7 +95,7 @@ class Dashboard extends Component {
             </li>
             <hr className="sidebar-divider " />
             <li className="nav-item">
-              <Link className="nav-link" to="/dashboard/products">
+              <Link className="nav-link" to="/dashboard/product">
                 <i className="fas fa-fw fa-table"></i>
                 <span>Products</span>
               </Link>

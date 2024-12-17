@@ -1,0 +1,32 @@
+.emptycartborder {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkOut {
+    margin: 0px 0.5em 0px 1em;
+    width: auto;
+    border: 1px solid var(--gray);
+    border-radius: 0.4em;
+    background-color: transparent;
+    color: var(--gray);
+    font-family: "Brush Script MT";
+    font-size: x-large;
+    align-items: center;
+}
+
+.checkOut:hover {
+    color: var(--white);
+    background-color: var(--SecondaryColor);
+    border: 1px solid var(--SecondaryColor);
+}
+
+.incon {
+    width: 1.5em;
+    height: 1.5em;
+    color: var(--grey);
+}
+
+.incon:hover {
+    color: var(--white);
+}
