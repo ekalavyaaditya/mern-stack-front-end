@@ -30,3 +30,23 @@
 .incon:hover {
     color: var(--white);
 }
+
+#removeCartButton:hover {
+    color: #ff6347;
+    border-color: #ff6347;
+    background: #ffffff;
+}
+
+#checkOut:hover {
+    color: #ff6347;
+    display: block;
+}
+
+#backarrow {
+    rotate: 180deg;
+}
+
+#ant-btn-default:hover {
+    color: var(--green) !important;
+    border-color: var(--green) !important;
+}

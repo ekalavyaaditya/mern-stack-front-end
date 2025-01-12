@@ -7,7 +7,7 @@ const { Meta } = Card;
 const Product = ({ product, description, link }) => {
   return (
     // <div style={{margin: "10px"}}>
-    <Link to={link} style={{ width: '19%', margin: '6px' }}>
+    <Link to={link} style={{ width: '19%', margin: '6px', textDecoration: 'none' }}>
       <Card
         style={{ width: '100%' }}
         hoverable
@@ -19,6 +19,7 @@ const Product = ({ product, description, link }) => {
         }
       >
         <Meta title={product.name} description={description} />
+        <p>₹{product.price}</p>
       </Card>
     </Link>
     // </div>

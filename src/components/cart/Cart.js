@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { Empty, Button } from "antd";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowLeftOutlined from '@mui/icons-material/ArrowForward';
 import { getCart, removeFromCart } from "../../actions/cartAction";
+import { getServer } from "../../utill";
 import Navbar from "../general/Navbar";
-import './Cart.css'
+import './Cart.css';
 
 class Cart extends Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    this.props.getCart(); // Dispatch the action to fetch the cart
+    this.props.getCart();
   }
 
   componentDidUpdate(prevProps) {
@@ -34,17 +36,142 @@ class Cart extends Component {
     const { products } = this.state.cart;
     if (products && products.length > 0) {
       products.forEach((product) => {
-        total += product.price;
+        total += product.price // Adjusted for quantity
       });
     }
     return total;
   };
 
-  removeCart = (product) => {
-    const cartId = this.state.cart._id;
-    this.props.removeFromCart({ id: cartId, product }).then(() => {
+  removeCart = async (product) => {
+    try {
+      const cartId = this.state.cart._id;
+      await this.props.removeFromCart({ id: cartId, product });
       this.props.getCart();
+    } catch (error) {
+      console.error('Error removing item from cart:', error);
+      alert('Failed to remove item. Please try again.');
+    }
+  };
+
+  handlePayment = async (product, e) => {
+    e.preventDefault();
+    const amount = product.price;
+    const currency = 'INR';
+    const receiptId = 'order_rcptid_11';
+    const response = await fetch(`${getServer()}/api/payment`, {
+      method: 'POST',
+      body: JSON.stringify({
+        amount,
+        currency,
+        receipte: receiptId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
+    const order = await response.json();
+    const options = {
+      key: 'rzp_test_X5t56BSYv4Rlco', // Replace with your Razorpay key_id
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency,
+      name: 'Acme Corp',
+      description: 'Test Transaction',
+      order_id: order.id, // This is the order_id created in the backend
+      callback_url: 'http://localhost:3000/payment-success', // Your success URL
+      "handler": function (response) {
+        if (response.razorpay_payment_id) {
+          alert('Payment Successful');
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
+        } else {
+          alert('Payment Failed');
+        }
+      },
+      prefill: {
+        name: 'Gaurav Kumar',
+        email: 'gaurav.kumar@example.com',
+        contact: '9999999999'
+      },
+      theme: {
+        color: '#00aeff'
+      },
+    };
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+      console.log("response==>", response);
+      alert(response.error.code);
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+    e.preventDefault();
+  };
+
+  checkOut = async (e) => {
+    e.preventDefault();
+    const total = this.totalCalculate();
+    const amount = total;
+    const currency = 'INR';
+    const receiptId = 'order_rcptid_11';
+    const response = await fetch(`${getServer()}/api/payment`, {
+      method: 'POST',
+      body: JSON.stringify({
+        amount,
+        currency,
+        receipte: receiptId,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const order = await response.json();
+    const options = {
+      key: 'rzp_test_X5t56BSYv4Rlco', // Replace with your Razorpay key_id
+      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      currency,
+      name: 'Acme Corp',
+      description: 'Test Transaction',
+      order_id: order.id, // This is the order_id created in the backend
+      callback_url: 'http://localhost:3000/payment-success', // Your success URL
+      "handler": function (response) {
+        if (response.razorpay_payment_id) {
+          alert('Payment Successful');
+          alert(response.razorpay_payment_id);
+          alert(response.razorpay_order_id);
+          alert(response.razorpay_signature);
+        } else {
+          alert('Payment Failed');
+        }
+      },
+      prefill: {
+        name: 'Gaurav Kumar',
+        email: 'gaurav.kumar@example.com',
+        contact: '9999999999'
+      },
+      theme: {
+        color: '#00aeff'
+      },
+    };
+    var rzp1 = new window.Razorpay(options);
+    rzp1.on('payment.failed', function (response) {
+      console.log("response==>", response);
+      alert(response.error.code);
+      alert(response.error.code);
+      alert(response.error.description);
+      alert(response.error.source);
+      alert(response.error.step);
+      alert(response.error.reason);
+      alert(response.error.metadata.order_id);
+      alert(response.error.metadata.payment_id);
+    });
+    rzp1.open();
+    e.preventDefault();
   };
 
   render() {
@@ -53,23 +180,10 @@ class Cart extends Component {
       <div>
         <Navbar />
         {isEmpty(cart.products) ? (
-          <div
-            className="empty-cart-border"
-            style={{
-              textAlign: "center",
-              height: "100vh",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
+          <div className="empty-cart-border">
             <Empty description={<h2>Cart is empty</h2>} />
             <Link to="/">
-              <Button type="primary" size="large">
-                Keep Shopping
-              </Button>
+              <Button type="primary" size="large">Keep Shopping</Button>
             </Link>
           </div>
         ) : (
@@ -80,13 +194,18 @@ class Cart extends Component {
                 justifyContent: "center",
                 alignItems: "center",
                 flexWrap: "wrap",
-                flexDirection: "row",
-                marginBottom: '1em'
+                marginBottom: '1em',
               }}
             >
-              <h1 style={{ marginBottom: "0px", marginRight: "auto", marginLeft: '1em' }}>Cart</h1>
-              <h1 style={{ marginRight: '0px', marginBottom: "0px" }}>Total Price: ${this.totalCalculate()}</h1>
-              <button className='checkOut'>Check Out<ArrowForwardIcon className="incon" /></button>
+              <h1>Cart</h1>
+              <h1>Total Price: ₹{this.totalCalculate()}</h1>
+              <button
+                className='checkOut'
+                onClick={(e) => this.checkOut(e)}
+                disabled={this.state.isProcessing} // Disable while processing payment
+              >
+                Check Out <ArrowForwardIcon />
+              </button>
             </div>
             <div
               style={{
@@ -98,31 +217,17 @@ class Cart extends Component {
               }}
             >
               {cart.products.map((product) => (
-                <div key={product.id} style={{ width: "auto" }}>
+                <div key={product.id}>
                   <img
                     alt={product.name}
-                    src={
-                      product.image ||
-                      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-                    }
+                    src={product.image || "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"}
                     style={{ objectFit: "cover", height: 200 }}
                   />
                   <div>
-                  <p style={{ margin: "0px" }}>
-                      <strong>Brand:</strong> {product.name}
-                    </p>
-                    <p style={{ margin: "0px" }}>
-                      <strong>Brand:</strong> {product.brand}
-                    </p>
-                    <p style={{ margin: "0px" }}>
-                      <strong>Category:</strong> {product.category}
-                    </p>
-                    <p style={{ margin: "0px" }}>
-                      <strong>Price:</strong> ${product.price}
-                    </p>
-                    {/* <p style={{ margin: "0px" }}>
-                      <strong>Quantity:</strong> {product.quantity}
-                    </p> */}
+                    <p><strong>Brand:</strong> {product.name}</p>
+                    <p><strong>Brand:</strong> {product.brand}</p>
+                    <p><strong>Category:</strong> {product.category}</p>
+                    <p><strong>Price:</strong>₹{product.price}</p>
                   </div>
                   <div
                     style={{
@@ -132,43 +237,39 @@ class Cart extends Component {
                       marginTop: "1em",
                     }}
                   >
-                    <button
-                      style={{
-                        border: "1px solid green",
-                        borderRadius: "5px",
-                        color: "green",
-                        backgroundColor: "transparent",
-                      }}
+                    <Button
+                      onClick={(e) => this.handlePayment(product, e)}
+                      disabled={this.state.isProcessing} // Disable while processing payment
+                      id="ant-btn-default"
                     >
                       Buy
-                    </button>
-                    <button
-                      style={{
-                        border: "1px solid red",
-                        borderRadius: "5px",
-                        color: "red",
-                        backgroundColor: "transparent",
-                      }}
-                      onClick={(_) => this.removeCart(product)}
+                    </Button>
+                    <Button
+                      id="removeCartButton"
+                      onClick={() => this.removeCart(product)}
                     >
                       Remove from the cart
-                    </button>
+                    </Button>
                   </div>
                 </div>
               ))}
             </div>
-            <div style={{
-              width: "100%",
-              height: "3em",
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            ><Link to='/'>Keep Browers...</Link></div>
+            <div
+              style={{
+                width: "100%",
+                height: "3em",
+                display: "flex",
+                flexWrap: "wrap",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <Link to="/" id="checkOut" className="checkOut" style={{ textDecoration: 'none', width: 'auto', padding: '0px 1em' }}>
+                <ArrowLeftOutlined id="backarrow" /> Keep Browsing...
+              </Link>
+            </div>
           </div>
-        )
-        }
+        )}
       </div>
     );
   }

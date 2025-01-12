@@ -153,7 +153,7 @@ class ProductDetails extends Component {
               <p className="product-brand">Brand: {product.brand}</p>
               <p className="product-category">Category: {product.category}</p>
               <p className="product-quantity">Quantity{product.quantity}</p>
-              <p className="product-price">${product.price}</p>
+              <p className="product-price">₹{product.price}</p>
               <Button type="primary"
                 onClick={(_) => this.addProductToCart(product)}
               >
