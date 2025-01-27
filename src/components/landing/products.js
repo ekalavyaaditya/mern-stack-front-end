@@ -42,6 +42,7 @@ class Products extends Component {
             link={`product/${product._id}`}
             product={product}
             description={this.productDetails(product)}
+            thumbnail={product.images[0]}
           />
         ))}
       </div>

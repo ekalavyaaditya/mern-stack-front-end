@@ -290,23 +290,26 @@ class Profile extends Component {
     );
   };
   render() {
-    const { name } = this.props.auth.user;
     return (
-      <div className="container" style={{ padding: "auto" }}>
-        <Typography variant="h4" align="center">
-          Welcome {name}
-        </Typography>
+      <div style={{
+        margin: "auto",
+        height: "70%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}>
         {this.state.profile ? (
           <Fragment>{this.displayProfile(this.state.profile)}</Fragment>
         ) : (
           <Fragment>
-            <Typography variant="body1">Create a profile</Typography>
+            <Typography variant="h4" align="center">Create a profile</Typography>
             <Link
               className="btn btn-primary"
               to="/dashboard/addprofile"
-              style={{ fontSize: "12px", border: "none" }}
+              style={{ fontSize: "15px", border: "none", width: "20%", height: "auto" }}
             >
-              Create Profile
+              Click Here To Create Profile
             </Link>
           </Fragment>
         )}

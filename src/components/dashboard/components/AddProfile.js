@@ -39,9 +39,8 @@ class AddProfile extends Component {
     return (
       <div className="add-profile-container" 
       sx={{
-        overflow:'scroll'
+        overflow:'scroll',
       }}>
-        <h1>Create profile</h1>
         <form onSubmit={this.onSubmit}>
           <div>
             <label>Website:</label>

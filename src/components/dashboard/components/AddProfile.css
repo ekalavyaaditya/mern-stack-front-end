@@ -1,7 +1,8 @@
 /* AddProfile.css */
 .add-profile-container {
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
+    margin-bottom: 2%;
     padding: 30px;
     border: 1px solid #e0e0e0;
     border-radius: 12px;
@@ -69,3 +70,11 @@
 .add-profile-container button:active {
     background-color: #003f7f;
 }
+
+.Option {
+    width: 180px;
+    height: 30px;
+    font-size: 15px;
+    padding: 2px 2px 2px 5px;
+    color: black;
+  }

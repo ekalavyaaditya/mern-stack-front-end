@@ -9,11 +9,19 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
   const handleLogout = () => {
     logout();
   };
+
+  var role = localStorage.getItem("role");
   const user = (
     <>
-      <Link to="/dashboard" className="link">
-        Dashboard
-      </Link>
+      {role === "customer" ? (
+        <Link to="/cart" className="link">
+          Cart
+        </Link>) : (
+        <Link to="/dashboard" className="link">
+          Dashboard
+        </Link>
+      )
+      }
       <Link onClick={handleLogout} to="/" className="link">
         <LogoutIcon />
         Logout

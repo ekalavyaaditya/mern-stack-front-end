@@ -83,7 +83,7 @@ class ProductDetails extends Component {
                 type="primary"
               >
                 go to cart
-              </Button>            
+              </Button>
             </Link>
           </center>
         </div>
@@ -145,7 +145,8 @@ class ProductDetails extends Component {
         {product ? (
           <div className="rowProductDetails">
             <div className="imgDiv">
-              <img src={image} alt={product.name} className="product-image" />
+              <img src={product.images.length > 0 ? product.images[0] : image}
+                alt={product.name} className="product-image" />
             </div>
             <div className="detailsProduct">
               <h1 className="product-name">{product.name}</h1>

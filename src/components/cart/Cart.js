@@ -180,7 +180,13 @@ class Cart extends Component {
       <div>
         <Navbar />
         {isEmpty(cart.products) ? (
-          <div className="empty-cart-border">
+          <div className="empty-cart-border" style={{
+            marginTop: "15em",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center"
+          }}>
             <Empty description={<h2>Cart is empty</h2>} />
             <Link to="/">
               <Button type="primary" size="large">Keep Shopping</Button>

@@ -1,10 +1,11 @@
 import React from "react";
 import propTypes from "prop-types";
+import { Input as InputAnt } from "antd";
 
 const Input = ({ type, name, placeholder, value, onChange,style }) => {
   return (
     <div className="from-group">
-      <input
+      <InputAnt
         type={type}
         placeholder={placeholder}
         name={name}

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { message } from "antd";
+import { message as antdMessage } from "antd";
 import Input from "../general/Input";
 import { login } from "../../actions/authAction";
 // import { decodeUser } from "../../utill";
@@ -20,20 +20,25 @@ class Login extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
   componentWillUpdate(nextProps) {
-    if (nextProps && nextProps.errors && nextProps.errors.length > 0) {
-      nextProps.errors.forEach((error) => {
-        message.error(error.msg);
-      });
-    }
-    if (nextProps.isAuthenticated) {
-      message.success("Welcome");
+    localStorage.setItem("role", nextProps.user.role);
+    if (nextProps.isAuthenticated === true) {
+      antdMessage.success("Welcome");
       this.redirectToHome();
+    }
+    else {
+      antdMessage.error('invalid email or password');
     }
   }
 
   redirectToHome = () => {
     setTimeout(() => {
-      window.location.href = "dashboard";
+      var role = localStorage.getItem("role");
+      if (role === "customer") {
+        window.location.href = "/";
+      }
+      else {
+        window.location.href = "dashboard";
+      }
     }, 1000);
   };
   onChange(e) {
@@ -46,9 +51,9 @@ class Login extends Component {
       password,
     };
     if (email === "" && password === "") {
-      message.error("Invailded email or password");
+      antdMessage.error("Invailded email or password");
     }
-    this.props.login(user);
+    this.props.login(user)
   }
   render() {
     const { email, password } = this.state;
@@ -97,6 +102,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  user: state.auth.user,
 });
 
 export default connect(mapStateToProps, { login, addToCart })(Login);

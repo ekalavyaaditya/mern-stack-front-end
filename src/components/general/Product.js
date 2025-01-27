@@ -14,7 +14,7 @@ const Product = ({ product, description, link }) => {
         cover={
           <img
             alt="example"
-            src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+            src={product.images.length > 0 ? product.images[0] : "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"}
           />
         }
       >

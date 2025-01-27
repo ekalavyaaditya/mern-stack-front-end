@@ -25,7 +25,7 @@ export const addproduct = (productData, history) => async (dispatch) => {
   };
   try {
     await axios.post(`${getServer()}/api/products`, productData, config);
-    history.push("/dashboard/products");
+    history.push("/dashboard/product");
   } catch (err) {
     dispatch({
       type: PORDUCT_ERROR,

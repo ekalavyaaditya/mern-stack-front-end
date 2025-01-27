@@ -13,6 +13,7 @@ class Dashboard extends Component {
       child: props.nestedRoute,
       search: "",
       isOpen: false,
+      nav: false,
     };
     this.dropDown = this.dropDown.bind(this);
   }
@@ -55,88 +56,107 @@ class Dashboard extends Component {
     }));
   };
 
+  minNav = () => {
+    this.setState((prevState) => ({
+      nav: !prevState.nav,
+    }));
+  };
+  handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   render() {
     const Child = this.state.child;
     const { user } = this.props.auth;
+    const pathname = window.location.pathname;
+    const routeTitles = {
+      "/dashboard": "Dash Board",
+      "/dashboard/addProduct": "Add Product",
+      "/dashboard/product": "Products",
+      "/dashboard/profile": "Profile",
+      "/dashboard/addprofile": " Create Profile",
+    };
+
+    const currentTitle = routeTitles[pathname] || "Dash Board";
 
     return (
       <div>
         <div id="wrapper">
-          <ul
-            className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-            id="accordionSidebar"
-          >
-            <Link
-              className="sidebar-brand d-flex align-items-center justify-content-center"
-              to="/"
+          {this.state.nav && (
+            <ul
+              className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+              id="accordionSidebar"
             >
-              <div className="sidebar-brand-text mx-3">
-                <i className="fas fa-store"></i> e-Shop
-              </div>
-            </Link>
-
-            <hr className="sidebar-divider my-0" />
-
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">
-                <i className="fas fa-fw fa-tachometer-alt "></i>
-                <span>Merchant Store</span>
+              <Link
+                className="sidebar-brand d-flex align-items-center justify-content-center"
+                to="/dashboard"
+              >
+                <div className="sidebar-brand-text mx-3">
+                  <i className="fas fa-store"></i> e-Shop
+                </div>
               </Link>
-            </li>
 
-            <hr className="sidebar-divider" />
+              <hr className="sidebar-divider my-0" />
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard/addProduct">
-                <i className="fas fa-fw fa-chart-area"></i>
-                <span>Add A Product</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider " />
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard/product">
-                <i className="fas fa-fw fa-table"></i>
-                <span>Products</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider" />
-            <li className="nav-item">
-              <Link className="nav-link" to="/dashboard/profile">
-                <i className="far fa-id-card"></i>
-                <span>Profile</span>
-              </Link>
-            </li>
-            <hr className="sidebar-divider " />
-          </ul>
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard">
+                  <i className="fas fa-fw fa-tachometer-alt "></i>
+                  <span>Merchant Store</span>
+                </Link>
+              </li>
+
+              <hr className="sidebar-divider" />
+
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/addProduct">
+                  <i className="fas fa-fw fa-chart-area"></i>
+                  <span>Add A Product</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider " />
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/product">
+                  <i className="fas fa-fw fa-table"></i>
+                  <span>Products</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider" />
+              <li className="nav-item">
+                <Link className="nav-link" to="/dashboard/profile">
+                  <i className="far fa-id-card"></i>
+                  <span>Profile</span>
+                </Link>
+              </li>
+              <hr className="sidebar-divider " />
+            </ul>
+          )}
 
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
-              <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+              <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+                style={{
+                  display: "flex",
+                  flexWrap: "wrap",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                }}>
                 <button
                   id="sidebarToggleTop"
                   className="btn btn-link d-md-none rounded-circle mr-3"
+                  onClick={this.minNav}
                 >
                   <i className="fa fa-bars"></i>
                 </button>
-
-                <form className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      className="form-control bg-light border-0 small"
-                      placeholder="Search for..."
-                      aria-label="Search"
-                      aria-describedby="basic-addon2"
-                    />
-                    <div className="input-group-append">
-                      <button className="btn btn-primary" type="button">
-                        <i className="fas fa-search fa-sm"></i>
-                      </button>
-                    </div>
-                  </div>
-                </form>
-                <ul className="navbar-nav ml-auto">
+                <h1
+                  style={{
+                    margin: '0px 204px 0px 353px',
+                    width: '45%',
+                  }}
+                >  {currentTitle}</h1>
+                <ul className="navbar-nav">
                   <li className="nav-item dropdown no-arrow d-sm-none">
                     <Link
                       className="nav-link dropdown-toggle"
@@ -172,50 +192,39 @@ class Dashboard extends Component {
                       </form>
                     </div>
                   </li>
-
-                  <div className="topbar-divider d-none d-sm-block"></div>
-
-                  <li style={
-                    this.state.isOpen
-                      ? {
-                        marginTop: "150px",
-                        display: "flex",
-                        flexDirection: "column",
-                        flexWrap: "wrap",
-                        width: "100%",
-                      }
-                      : { marginTop: "10px" }
-                  }>
-                    <div
-                      onClick={this.dropDown}
-                      style={
-                        this.state.isOpen
-                          ? {
-                            display: "flex",
-                            flexWrap: "wrap",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: "100%",
-                          }
-                          : {}
-                      }
-                    >
-                      <span style={{ fontSize: 'small' }}>
-                        {user.name}
-                      </span>
-                      <Avatar size={40}>
-                        {user.name && this.avatarText(user.name)}
-                      </Avatar>
-                    </div>
+                  <li className="navbar-nav" style={{ alignItems: "center" }} onClick={this.dropDown}>
+                    {/* <div
+                     
+                      // style={{
+                      //   display: "flex",
+                      //   flexWrap: "wrap",
+                      //   alignItems: "center",
+                      //   justifyContent: "center",
+                      //   width: "100%",
+                      //   cursor: "pointer", // Optional: Indicates that this element is clickable
+                      // }}
+                    > */}
+                    <span style={{ fontSize: 'small', marginRight: '0.5em' }}>
+                      {user.name}
+                    </span>
+                    <Avatar size={40}>
+                      {user.name && this.avatarText(user.name)}
+                    </Avatar>
+                    {/* </div> */}
                     {this.state.isOpen && (
-                      <div style={
-                        this.state.isOpen
-                          ? {
-                            zIndex: 999,
-                            background: "white",
-                          }
-                          : {}
-                      }>
+                      <div
+                        open={this.state.isOpen}
+                        style={
+                          this.state.isOpen
+                            ? {
+                              zIndex: 999,
+                              background: "white",
+                              marginTop: "21%",
+                              position: "absolute",
+                              right: "10px",
+                            }
+                            : {}
+                        }>
                         <Link className="dropdown-item" to="#">
                           <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                           Profile
@@ -231,7 +240,6 @@ class Dashboard extends Component {
                         <div className="dropdown-divider"></div>
                         <Link
                           className="dropdown-item"
-                          to="#"
                           onClick={this.logUserOut}
                         >
                           <i className="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -253,11 +261,14 @@ class Dashboard extends Component {
               </div>
             </footer>
           </div>
-        </div>
+        </div >
 
-        <Link className="scroll-to-top rounded" to="#page-top">
+        <button className="scroll-to-top rounded"
+          id="#page-top"
+          onClick={this.handleScrollToTop}
+        >
           <i className="fas fa-angle-up"></i>
-        </Link>
+        </button>
 
         <div
           className="modal fade"
@@ -301,7 +312,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     );
   }
 }
