@@ -81,58 +81,64 @@ class Dashboard extends Component {
     };
 
     const currentTitle = routeTitles[pathname] || "Dash Board";
+    const className = this.state.nav
+      ? "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
+      : "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion";
 
     return (
       <div>
         <div id="wrapper">
-          {this.state.nav && (
-            <ul
-              className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-              id="accordionSidebar"
+          <ul
+            className={className}
+            id="accordionSidebar"
+          >
+            <Link
+              className="nav-item"
+              style={{
+                color: " white",
+                margin: "10% auto"
+              }}
+              to="/dashboard"
             >
-              <Link
-                className="sidebar-brand d-flex align-items-center justify-content-center"
-                to="/dashboard"
-              >
-                <div className="sidebar-brand-text mx-3">
-                  <i className="fas fa-store"></i> e-Shop
-                </div>
+              {/* <div className="sidebar-brand-text mx-3"> */}
+              <i className="fas fa-fw fa-store-alt"></i>
+              <span>e-Shop</span>
+              {/* </div> */}
+            </Link>
+
+            <hr className="sidebar-divider my-0" />
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard">
+                <i className="fas fa-fw fa-tachometer-alt "></i>
+                <span>Merchant Store</span>
               </Link>
+            </li>
 
-              <hr className="sidebar-divider my-0" />
+            <hr className="sidebar-divider" />
 
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard">
-                  <i className="fas fa-fw fa-tachometer-alt "></i>
-                  <span>Merchant Store</span>
-                </Link>
-              </li>
-
-              <hr className="sidebar-divider" />
-
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/addProduct">
-                  <i className="fas fa-fw fa-chart-area"></i>
-                  <span>Add A Product</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider " />
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/product">
-                  <i className="fas fa-fw fa-table"></i>
-                  <span>Products</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider" />
-              <li className="nav-item">
-                <Link className="nav-link" to="/dashboard/profile">
-                  <i className="far fa-id-card"></i>
-                  <span>Profile</span>
-                </Link>
-              </li>
-              <hr className="sidebar-divider " />
-            </ul>
-          )}
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/addProduct">
+                <i className="fas fa-fw fa-chart-area"></i>
+                <span>Add A Product</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider " />
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/product">
+                <i className="fas fa-fw fa-table"></i>
+                <span>Products</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider" />
+            <li className="nav-item">
+              <Link className="nav-link" to="/dashboard/profile">
+                <i className="far fa-id-card"></i>
+                <span>Profile</span>
+              </Link>
+            </li>
+            <hr className="sidebar-divider " />
+          </ul>
 
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
@@ -152,24 +158,13 @@ class Dashboard extends Component {
                 </button>
                 <h1
                   style={{
-                    margin: '0px 204px 0px 353px',
-                    width: '45%',
+                    marginRight: 'auto',
+                    marginLeft: 'auto',
+                    width: 'auto',
                   }}
                 >  {currentTitle}</h1>
                 <ul className="navbar-nav">
                   <li className="nav-item dropdown no-arrow d-sm-none">
-                    <Link
-                      className="nav-link dropdown-toggle"
-                      to="#"
-                      id="searchDropdown"
-                      role="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="fas fa-search fa-fw"></i>
-                    </Link>
-
                     <div
                       className="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                       aria-labelledby="searchDropdown"
@@ -204,7 +199,7 @@ class Dashboard extends Component {
                       //   cursor: "pointer", // Optional: Indicates that this element is clickable
                       // }}
                     > */}
-                    <span style={{ fontSize: 'small', marginRight: '0.5em' }}>
+                    <span style={{ fontSize: 'small', marginLeft: 'auto' }}>
                       {user.name}
                     </span>
                     <Avatar size={40}>
@@ -225,7 +220,7 @@ class Dashboard extends Component {
                             }
                             : {}
                         }>
-                        <Link className="dropdown-item" to="#">
+                        <Link className="dropdown-item" to="/dashboard/profile">
                           <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                           Profile
                         </Link>
