@@ -32,3 +32,6 @@ h1{
   background-color: var(--SecondaryColor)!important;
   color: var(--White)!important;
 }
+.from-group{
+  margin: 0 5%;
+}
