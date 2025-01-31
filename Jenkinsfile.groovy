@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        DOCKER_IMAGE = 'front-end-front-end'
+        DOCKER_IMAGE = 'jenkinsfront-end'
         PROJECT_ID = '27fd3e840d72'
         COMPUTE_ZONE = 'us-west2-a'
     }
