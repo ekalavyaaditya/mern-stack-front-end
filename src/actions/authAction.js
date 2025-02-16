@@ -41,7 +41,7 @@ export const register = (userData) => async (dispatch) => {
       type: SUCCESSFUL_REGISTER,
       payload: res.data,
     });
-    dispatch(setCurrentUser()); 
+    dispatch(setCurrentUser());
   } catch (err) {
     const error = err.response.data.errors;
     if (error) {
@@ -76,7 +76,7 @@ export const login = (userData) => async (dispatch) => {
       dispatch({
         type: ERROR,
         payload: error,
-      }); 
+      });
     } else {
       dispatch({
         type: FAILURE_LOGIN,
@@ -85,4 +85,4 @@ export const login = (userData) => async (dispatch) => {
   }
 };
 // logout
-export const logout = () => dispatch => dispatch({type: LOGOUT})
+export const logout = () => dispatch => dispatch({ type: LOGOUT })

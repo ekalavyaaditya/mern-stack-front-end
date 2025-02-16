@@ -100,7 +100,6 @@ class Addproduct extends Component {
 
     return (
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <h5>Add Product</h5>
         <Input name="name" type="text" placeholder="Name of product" value={name} onChange={this.onChange} /><br />
         <Input name="description" type="text" placeholder="Description" value={description} onChange={this.onChange} /><br />
         <Input name="price" type="number" placeholder="Enter the price" value={price} onChange={this.onChange} /><br />

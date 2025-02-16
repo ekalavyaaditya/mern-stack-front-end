@@ -38,6 +38,10 @@ export default function authReducer(state = initialState, action) {
     case FAILURE_LOGIN:
     case LOGOUT:
       localStorage.removeItem("token");
+      localStorage.removeItem("role");
+      localStorage.removeItem("userid");
+      localStorage.removeItem("rzp_checkout_anon_id");
+      localStorage.removeItem("rzp_device_id");
       return {
         ...state,
         ...payload,

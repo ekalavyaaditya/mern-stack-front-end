@@ -4,7 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'jenkinsfront-end'
         PROJECT_ID = '27fd3e840d72'
-        COMPUTE_ZONE = 'us-west2-a'
+        COMPUTE_ZONE = 'us-central1-c'
     }
     
     stages {

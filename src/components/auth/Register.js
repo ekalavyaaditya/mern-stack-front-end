@@ -84,6 +84,9 @@ class Register extends Component {
           const context = { product: carProducts, userID };
           this.props.addToCart(context);
           localStorage.removeItem("products");
+          localStorage.setItem("userid");
+          localStorage.setItem("rzp_checkout_anon_id");
+          localStorage.setItem("rzp_device_id");
         }
         this.props.history.push(split);
       }

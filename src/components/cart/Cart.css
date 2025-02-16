@@ -10,15 +10,15 @@
     border-radius: 0.4em;
     background-color: transparent;
     color: var(--gray);
-    font-family: "Brush Script MT";
-    font-size: x-large;
+    font-family: var(--fontTwo);
+    font-size: medium;
     align-items: center;
 }
 
 .checkOut:hover {
-    color: var(--white);
-    background-color: var(--SecondaryColor);
-    border: 1px solid var(--SecondaryColor);
+    color: var(--green);
+    background-color: var(--white);
+    border: 1px solid var(--green);
 }
 
 .incon {
@@ -37,9 +37,18 @@
     background: #ffffff;
 }
 
-#checkOut:hover {
+.back-btn {
+    border: 1px solid var(--gray);
+    border-radius: 0.4em;
+    color: var(--gray);
+}
+
+.back-btn:hover {
     color: #ff6347;
+    border-color: #ff6347;
+    background-color: var(--white);
     display: block;
+    border-radius: 0.4em;
 }
 
 #backarrow {

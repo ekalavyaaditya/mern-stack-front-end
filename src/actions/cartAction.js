@@ -50,12 +50,12 @@ export const removeFromCart = (context) => (dispatch) => {
   const { id } = context;
   return axios
     .put(`${getServer()}/api/cart/${id}`, context, config)
-    .then((res) =>
+    .then((res) => {
       dispatch({
         type: GET_CART,
         payload: res.data,
       })
-    )
+    })
     .catch((err) =>
       dispatch({
         type: ERROR,

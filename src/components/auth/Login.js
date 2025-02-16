@@ -21,6 +21,7 @@ class Login extends Component {
   }
   componentWillUpdate(nextProps) {
     localStorage.setItem("role", nextProps.user.role);
+    localStorage.setItem("userid", nextProps.user._id);
     if (nextProps.isAuthenticated === true) {
       antdMessage.success("Welcome");
       this.redirectToHome();

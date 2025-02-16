@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
-import { Empty, Button } from "antd";
+import { Empty, Button, message } from "antd";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import ArrowLeftOutlined from '@mui/icons-material/ArrowForward';
 import { getCart, removeFromCart } from "../../actions/cartAction";
@@ -17,7 +17,6 @@ class Cart extends Component {
       cart: {},
     };
   }
-
   componentDidMount() {
     this.props.getCart();
   }
@@ -36,7 +35,7 @@ class Cart extends Component {
     const { products } = this.state.cart;
     if (products && products.length > 0) {
       products.forEach((product) => {
-        total += product.price // Adjusted for quantity
+        total += product.price
       });
     }
     return total;
@@ -57,60 +56,64 @@ class Cart extends Component {
     e.preventDefault();
     const amount = product.price;
     const currency = 'INR';
-    const receiptId = 'order_rcptid_11';
-    const response = await fetch(`${getServer()}/api/payment`, {
-      method: 'POST',
-      body: JSON.stringify({
-        amount,
+    const cartId = this.state.cart._id;
+    var userId = localStorage.getItem("userid");
+    try {
+      const response = await fetch(`${getServer()}/api/payment`, {
+        method: 'POST',
+        body: JSON.stringify({
+          amount,
+          userId,
+          products: [product._id],
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const order = await response.json();
+      const options = {
+        key: 'rzp_test_X5t56BSYv4Rlco', // Replace with your Razorpay key_id
+        amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency,
-        receipte: receiptId,
-      }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    const order = await response.json();
-    const options = {
-      key: 'rzp_test_X5t56BSYv4Rlco', // Replace with your Razorpay key_id
-      amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      currency,
-      name: 'Acme Corp',
-      description: 'Test Transaction',
-      order_id: order.id, // This is the order_id created in the backend
-      callback_url: 'http://localhost:3000/payment-success', // Your success URL
-      "handler": function (response) {
-        if (response.razorpay_payment_id) {
-          alert('Payment Successful');
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
-        } else {
-          alert('Payment Failed');
-        }
-      },
-      prefill: {
-        name: 'Gaurav Kumar',
-        email: 'gaurav.kumar@example.com',
-        contact: '9999999999'
-      },
-      theme: {
-        color: '#00aeff'
-      },
-    };
-    var rzp1 = new window.Razorpay(options);
-    rzp1.on('payment.failed', function (response) {
-      console.log("response==>", response);
-      alert(response.error.code);
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
-    });
-    rzp1.open();
-    e.preventDefault();
+        name: 'Acme Corp',
+        description: 'Test Transaction',
+        order_id: order.id, // This is the order_id created in the backend
+        callback_url: 'http://localhost:3000/payment-success', // Your success URL
+        "handler": (response) => {
+          if (response.razorpay_payment_id) {
+            message.success('order palced Successful');
+            this.props.removeFromCart({ id: cartId, product });
+            this.props.getCart();
+          } else {
+            message.error('Payment Failed');
+          }
+        },
+        prefill: {
+          name: 'Gaurav Kumar',
+          email: 'gaurav.kumar@example.com',
+          contact: '9999999999'
+        },
+        theme: {
+          color: '#00aeff'
+        },
+      };
+      var rzp1 = new window.Razorpay(options);
+      rzp1.on('payment.failed', function (response) {
+        message.error(response.error.code);
+        message.error(response.error.code);
+        message.error(response.error.description);
+        message.error(response.error.source);
+        message.error(response.error.step);
+        message.error(response.error.reason);
+        message.error(response.error.metadata.order_id);
+        message.error(response.error.metadata.payment_id);
+      });
+      rzp1.open();
+      e.preventDefault();
+
+    } catch (error) {
+      message.error(error);
+    }
   };
 
   checkOut = async (e) => {
@@ -141,12 +144,12 @@ class Cart extends Component {
       callback_url: 'http://localhost:3000/payment-success', // Your success URL
       "handler": function (response) {
         if (response.razorpay_payment_id) {
-          alert('Payment Successful');
-          alert(response.razorpay_payment_id);
-          alert(response.razorpay_order_id);
-          alert(response.razorpay_signature);
+          message.success('order palced successflly');
+          // alert(response.razorpay_payment_id);
+          // alert(response.razorpay_order_id);
+          // alert(response.razorpay_signature);
         } else {
-          alert('Payment Failed');
+          message.error('Payment Failed');
         }
       },
       prefill: {
@@ -160,15 +163,15 @@ class Cart extends Component {
     };
     var rzp1 = new window.Razorpay(options);
     rzp1.on('payment.failed', function (response) {
-      console.log("response==>", response);
-      alert(response.error.code);
-      alert(response.error.code);
-      alert(response.error.description);
-      alert(response.error.source);
-      alert(response.error.step);
-      alert(response.error.reason);
-      alert(response.error.metadata.order_id);
-      alert(response.error.metadata.payment_id);
+      // console.log("response==>", response);
+      message.error(response.error.code);
+      message.error(response.error.code);
+      message.error(response.error.description);
+      message.error(response.error.source);
+      message.error(response.error.step);
+      message.error(response.error.reason);
+      message.error(response.error.metadata.order_id);
+      message.error(response.error.metadata.payment_id);
     });
     rzp1.open();
     e.preventDefault();
@@ -204,7 +207,7 @@ class Cart extends Component {
               }}
             >
               <h1>Cart</h1>
-              <h1>Total Price: ₹{this.totalCalculate()}</h1>
+              <h1 style={{ marginLeft: '1%' }}>Total Price: ₹{this.totalCalculate()}</h1>
               <button
                 className='checkOut'
                 onClick={(e) => this.checkOut(e)}
@@ -270,7 +273,7 @@ class Cart extends Component {
                 alignItems: "center",
               }}
             >
-              <Link to="/" id="checkOut" className="checkOut" style={{ textDecoration: 'none', width: 'auto', padding: '0px 1em' }}>
+              <Link to="/" className="back-btn" style={{ textDecoration: 'none', width: 'auto', padding: '0px 1em' }}>
                 <ArrowLeftOutlined id="backarrow" /> Keep Browsing...
               </Link>
             </div>
