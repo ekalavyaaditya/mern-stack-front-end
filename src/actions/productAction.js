@@ -18,9 +18,11 @@ export const getproduct = () => async (dispatch) => {
 };
 
 export const addproduct = (productData, history) => async (dispatch) => {
+  const token = localStorage.getItem("token");
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "multipart/form-data",
+      "x-auth-token": token,
     },
   };
   try {

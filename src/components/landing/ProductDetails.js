@@ -58,7 +58,9 @@ class ProductDetails extends Component {
         onOk={this.handleOk}
         onCancel={this.handleCancel}
         footer={[
-          <Button key="back" onClick={this.handleCancel}>close</Button>
+          <Button key="back" onClick={this.handleCancel}>
+            close
+          </Button>,
         ]}
       >
         <div>
@@ -67,9 +69,8 @@ class ProductDetails extends Component {
             message={
               <center>
                 <span>
-                  <strong>
-                    added
-                  </strong>{product.name}to cart
+                  <strong style={{ marginRight: ".3em" }}>added</strong>
+                  {product.name}to cart
                 </span>
               </center>
             }
@@ -78,10 +79,7 @@ class ProductDetails extends Component {
           <center>
             <br />
             <Link to="/cart?redirect=/cart">
-              <Button
-                key="submit"
-                type="primary"
-              >
+              <Button key="submit" type="primary">
                 go to cart
               </Button>
             </Link>
@@ -145,8 +143,11 @@ class ProductDetails extends Component {
         {product ? (
           <div className="rowProductDetails">
             <div className="imgDiv">
-              <img src={product.images.length > 0 ? product.images[0] : image}
-                alt={product.name} className="product-image" />
+              <img
+                src={product.images.length > 0 ? product.images[0] : image}
+                alt={product.name}
+                className="product-image"
+              />
             </div>
             <div className="detailsProduct">
               <h1 className="product-name">{product.name}</h1>
@@ -155,7 +156,8 @@ class ProductDetails extends Component {
               <p className="product-category">Category: {product.category}</p>
               <p className="product-quantity">Quantity{product.quantity}</p>
               <p className="product-price">₹{product.price}</p>
-              <Button type="primary"
+              <Button
+                type="primary"
                 onClick={(_) => this.addProductToCart(product)}
               >
                 {" "}
@@ -164,11 +166,12 @@ class ProductDetails extends Component {
             </div>
           </div>
         ) : (
-          <div style={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center"
-          }}
+          <div
+            style={{
+              height: "100vh",
+              display: "flex",
+              justifyContent: "center",
+            }}
           >
             <Flex
               align="center"
@@ -190,4 +193,6 @@ const mapStateToProps = (state) => ({
   product: state.products.product,
 });
 
-export default connect(mapStateToProps, { getProductById, addToCart })(ProductDetails);
+export default connect(mapStateToProps, { getProductById, addToCart })(
+  ProductDetails
+);

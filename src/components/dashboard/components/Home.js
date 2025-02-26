@@ -6,7 +6,9 @@ import PropTypes from "prop-types";
 const Home = ({ auth }) => {
   const { name } = auth.user;
   return (
-    <div className="container-fluid">
+    <div
+      className="container container-fluid container-lg container-md container-sm container-xl container-xxl"
+    >
       <h1>Welcome {name}</h1>
       <div className="row">
         <div className="col-xl-3 col-md-6 mb-4">
@@ -90,7 +92,9 @@ const Home = ({ auth }) => {
                   <div className="text-xs font-weight-bold text-warning text-uppercase mb-1">
                     Pending Requests
                   </div>
-                  <div className="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                  <div className="h5 mb-0 font-weight-bold text-gray-800">
+                    18
+                  </div>
                 </div>
                 <div className="col-auto">
                   <i className="fas fa-comments fa-2x text-gray-300"></i>
@@ -99,9 +103,7 @@ const Home = ({ auth }) => {
             </div>
           </div>
         </div>
-        <div className="col-12">
-          {/* <Globe/> */}
-        </div>
+        <div className="col-12">{/* <Globe/> */}</div>
       </div>
     </div>
   );

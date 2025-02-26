@@ -43,7 +43,14 @@ class Products extends Component {
   render() {
     const { merachantProducts } = this.state;
     return (
-      <div style={{ width: 'auto', display: 'flex', flexWrap: 'wrap', }}>
+      <div
+        style={{
+          width: "auto",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "space-evenly",
+        }}
+      >
         {merachantProducts.map((product) => (
           <Product
             link={`/product/${product._id}`}

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Avatar } from "antd";
 import { logout } from "../../actions/authAction";
-import "../../dashboard.css"
+import "../../App.css";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -84,19 +84,17 @@ class Dashboard extends Component {
     const className = this.state.nav
       ? "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled"
       : "navbar-nav bg-gradient-primary sidebar sidebar-dark accordion";
+    const iconClass = this.state.nav ? "" : "bi bi-x-square-fill";
 
     return (
       <div>
         <div id="wrapper">
-          <ul
-            className={className}
-            id="accordionSidebar"
-          >
+          <ul className={className} id="accordionSidebar">
             <Link
               className="nav-item"
               style={{
                 color: " white",
-                margin: "10% auto"
+                margin: "10% auto",
               }}
               to="/dashboard"
             >
@@ -138,17 +136,32 @@ class Dashboard extends Component {
               </Link>
             </li>
             <hr className="sidebar-divider " />
+            <li
+              className="nav-item d-md-none"
+              style={{ marginTop: "auto", marginBottom: "0px" }}
+            >
+              <div className="nav-link">
+                <i
+                  className={iconClass}
+                  onClick={this.minNav}
+                  style={{ fontSize: "larger" }}
+                ></i>
+                <span>Close</span>
+              </div>
+            </li>
           </ul>
 
           <div id="content-wrapper" className="d-flex flex-column">
             <div id="content">
-              <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
+              <nav
+                className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow"
                 style={{
                   display: "flex",
                   flexWrap: "wrap",
                   justifyContent: "space-evenly",
                   alignItems: "center",
-                }}>
+                }}
+              >
                 <button
                   id="sidebarToggleTop"
                   className="btn btn-link d-md-none rounded-circle mr-3"
@@ -158,11 +171,14 @@ class Dashboard extends Component {
                 </button>
                 <h1
                   style={{
-                    marginRight: 'auto',
-                    marginLeft: 'auto',
-                    width: 'auto',
+                    marginRight: "auto",
+                    marginLeft: "auto",
+                    width: "auto",
                   }}
-                >  {currentTitle}</h1>
+                >
+                  {" "}
+                  {currentTitle}
+                </h1>
                 <ul className="navbar-nav">
                   <li className="nav-item dropdown no-arrow d-sm-none">
                     <div
@@ -187,7 +203,11 @@ class Dashboard extends Component {
                       </form>
                     </div>
                   </li>
-                  <li className="navbar-nav" style={{ alignItems: "center" }} onClick={this.dropDown}>
+                  <li
+                    className="navbar-nav"
+                    style={{ alignItems: "center" }}
+                    onClick={this.dropDown}
+                  >
                     {/* <div
                      
                       // style={{
@@ -199,7 +219,7 @@ class Dashboard extends Component {
                       //   cursor: "pointer", // Optional: Indicates that this element is clickable
                       // }}
                     > */}
-                    <span style={{ fontSize: 'small', marginLeft: 'auto' }}>
+                    <span style={{ fontSize: "small", marginLeft: "auto" }}>
                       {user.name}
                     </span>
                     <Avatar size={40}>
@@ -212,14 +232,15 @@ class Dashboard extends Component {
                         style={
                           this.state.isOpen
                             ? {
-                              zIndex: 999,
-                              background: "white",
-                              marginTop: "21%",
-                              position: "absolute",
-                              right: "10px",
-                            }
+                                zIndex: 999,
+                                background: "white",
+                                marginTop: "21%",
+                                position: "absolute",
+                                right: "10px",
+                              }
                             : {}
-                        }>
+                        }
+                      >
                         <Link className="dropdown-item" to="/dashboard/profile">
                           <i className="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                           Profile
@@ -249,16 +270,15 @@ class Dashboard extends Component {
             </div>
 
             <footer className="sticky-footer bg-white">
-              <div className="container my-auto">
-                <div className="copyright text-center my-auto">
-                  <span>Copyright &copy; eShop {new Date().getFullYear()}</span>
-                </div>
+              <div className="copyright text-center my-auto">
+                <span>Copyright &copy; eShop {new Date().getFullYear()}</span>
               </div>
             </footer>
           </div>
-        </div >
+        </div>
 
-        <button className="scroll-to-top rounded"
+        <button
+          className="scroll-to-top rounded"
           id="#page-top"
           onClick={this.handleScrollToTop}
         >
@@ -307,7 +327,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
-      </div >
+      </div>
     );
   }
 }

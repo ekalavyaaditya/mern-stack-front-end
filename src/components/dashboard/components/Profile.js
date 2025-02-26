@@ -293,7 +293,7 @@ class Profile extends Component {
     return (
       <div style={{
         margin: "auto",
-        height: "70%",
+        height: "33em",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
