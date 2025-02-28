@@ -75,7 +75,7 @@ class Cart extends Component {
         key: "rzp_test_X5t56BSYv4Rlco", // Replace with your Razorpay key_id
         amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency,
-        name: "Acme Corp",
+        name: "Aditya",
         description: "Test Transaction",
         order_id: order.id, // This is the order_id created in the backend
         callback_url: "http://localhost:3000/payment-success", // Your success URL
@@ -115,7 +115,7 @@ class Cart extends Component {
     }
   };
 
-  checkOut = async (product, e) => {
+  checkOut = async (products, e) => {
     e.preventDefault();
     const total = this.totalCalculate();
     const amount = total * 100;
@@ -128,7 +128,8 @@ class Cart extends Component {
         body: JSON.stringify({
           amount,
           userId,
-          products: [product._id],
+          cartProducts: products.map((p) => p._id),
+          // products: [product._id],
         }),
         headers: {
           "Content-Type": "application/json",
@@ -139,14 +140,14 @@ class Cart extends Component {
         key: "rzp_test_X5t56BSYv4Rlco", // Replace with your Razorpay key_id
         amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
         currency,
-        name: "Acme Corp",
+        name: "Aditya",
         description: "Test Transaction",
         order_id: order.id, // This is the order_id created in the backend
         callback_url: "http://localhost:3000/payment-success", // Your success URL
         handler: (response) => {
           if (response.razorpay_payment_id) {
             message.success("order palced Successful");
-            this.props.removeFromCart({ id: cartId, product });
+            this.props.removeFromCart({ id: cartId, products });
             this.props.getCart();
           } else {
             message.error("Payment Failed");
@@ -217,19 +218,19 @@ class Cart extends Component {
               <h1 style={{ marginLeft: "1%" }}>
                 Total Price: ₹{this.totalCalculate()}
               </h1>
-              {cart.products.map((product) => (
-                <div key={product.id}>
+              {cart?.products?.length > 0 && (
+                <div key="checkout-button">
                   <button
                     className="checkOut"
                     onClick={(e) => {
-                      this.checkOut(product, e);
+                      this.checkOut(cart.products, e);
                     }}
                     disabled={this.state.isProcessing} // Disable while processing payment
                   >
                     Check Out <ArrowForwardIcon />
                   </button>
                 </div>
-              ))}
+              )}
             </div>
             <div
               style={{
