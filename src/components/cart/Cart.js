@@ -153,9 +153,9 @@ class Cart extends Component {
           }
         },
         prefill: {
-          name: "Gaurav Kumar",
-          email: "gaurav.kumar@example.com",
-          contact: "9999999999",
+          name: "Aditya.S",
+          email: "Ekalavyaaditya@gmail.com",
+          contact: "9110809527",
         },
         theme: {
           color: "#00aeff",
