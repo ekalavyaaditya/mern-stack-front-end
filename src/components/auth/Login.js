@@ -52,7 +52,7 @@ class Login extends Component {
       password,
     };
     if (email === "" && password === "") {
-      antdMessage.error("Invailded email or password");
+      antdMessage.error("Invalid email or password");
     }
     this.props.login(user)
   }
@@ -68,7 +68,7 @@ class Login extends Component {
         <div className="log">
           <form style={{ padding: "10px" }}>
             <h1>Sign In</h1>
-            <p>Sing Into Your Account</p>
+            <p>Sign Into Your Account</p>
             <Input
               name="email"
               type="email"
@@ -86,7 +86,7 @@ class Login extends Component {
             />
             <br />
             <Button type="primary" className="btn" onClick={this.onSubmit}>
-              Sing In
+              Sign In
             </Button>
             <p className="my-1">
               Dont Have an account?
