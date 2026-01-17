@@ -16,6 +16,7 @@
   width: 30%;
   border: solid 1px var(--blur);
   border-radius: 5%;
+  padding: 20px;
 }
 h1{
   font-family: var(--fontOne);
@@ -34,4 +35,10 @@ h1{
 }
 .from-group{
   margin: 0 5%;
+}
+
+@media (max-width: 768px) {
+  .log {
+    width: 90%;
+  }
 }

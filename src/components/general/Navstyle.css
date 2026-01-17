@@ -7,6 +7,8 @@
   top: 0px;
   width: 100%;
   z-index: 1;
+  padding: 0 20px;
+  align-items: center;
 }
 
 .bg {
@@ -36,4 +38,24 @@
   text-shadow: 2px 2px 2px var(--AccentColor1);
   color: var(--AccentColor1);
   text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .navbarstyle {
+    flex-direction: column;
+    padding: 10px;
+    height: auto;
+  }
+
+  .bg {
+    margin-right: 0;
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+
+  .link {
+    display: block;
+    margin: 5px 0;
+    text-align: center;
+  }
 }

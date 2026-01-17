@@ -6,8 +6,7 @@ import { Link } from "react-router-dom";
 const { Meta } = Card;
 const Product = ({ product, description, link }) => {
   return (
-    // <div style={{margin: "10px"}}>
-    <Link to={link} style={{ width: '19%', margin: '6px', textDecoration: 'none' }}>
+    <Link to={link} className="product-card-link">
       <Card
         style={{ width: '100%' }}
         hoverable
@@ -22,7 +21,6 @@ const Product = ({ product, description, link }) => {
         <p>₹{product.price}</p>
       </Card>
     </Link>
-    // </div>
   );
 };
 Product.propTypes = {
