@@ -6,7 +6,7 @@ import Input from "../general/Input";
 import { login } from "../../actions/authAction";
 // import { decodeUser } from "../../utill";
 import { addToCart } from "../../actions/cartAction";
-import { Button } from "@mui/material";
+import { Button } from "antd";
 import Navbar from "../general/Navbar";
 import "./Login.css";
 class Login extends Component {
@@ -85,7 +85,7 @@ class Login extends Component {
               onChange={this.onChange}
             />
             <br />
-            <Button className="btn" onClick={this.onSubmit}>
+            <Button type="primary" className="btn" onClick={this.onSubmit}>
               Sing In
             </Button>
             <p className="my-1">

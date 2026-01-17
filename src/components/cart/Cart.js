@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { isEmpty } from "lodash";
 import { Empty, Button, message } from "antd";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import ArrowLeftOutlined from "@mui/icons-material/ArrowForward";
+import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { getCart, removeFromCart } from "../../actions/cartAction";
 import { getServer } from "../../utill";
 import Navbar from "../general/Navbar";
@@ -227,7 +226,7 @@ class Cart extends Component {
                     }}
                     disabled={this.state.isProcessing} // Disable while processing payment
                   >
-                    Check Out <ArrowForwardIcon />
+                    Check Out <ArrowRightOutlined />
                   </button>
                 </div>
               )}
