@@ -15,6 +15,7 @@
   color: var(--SecondaryColor);
   font-family: var(--fontOne);
   font-size: 90px;
+  text-align: center;
 }
 .bgcontainer p {
   font-family: var(--fontTwo);
@@ -22,4 +23,19 @@
   color: var(--TextlighColor);
   font-weight: bolder;
   color: var(--PrimaryColor);
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .bgcontainer {
+    height: 300px;
+  }
+  .bgcontainer h1 {
+    font-size: 40px;
+    padding-top: 100px;
+  }
+  .bgcontainer p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
 }

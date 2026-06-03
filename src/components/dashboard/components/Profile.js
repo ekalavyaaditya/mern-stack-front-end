@@ -8,15 +8,19 @@ import { connect } from "react-redux";
 import { withRouter, Link } from "react-router-dom";
 import { decodeUser } from "../../../utill";
 import {
-  Box,
-  Typography,
-  Grid,
-  Divider,
   Button,
   Modal,
-  TextField,
-} from "@mui/material";
-import { message, Popconfirm } from "antd";
+  Input,
+  Row,
+  Col,
+  Typography,
+  Divider,
+  message,
+  Popconfirm,
+} from "antd";
+
+const { Title, Text } = Typography;
+const { TextArea } = Input;
 
 class Profile extends Component {
   constructor(props) {
@@ -77,7 +81,7 @@ class Profile extends Component {
   };
 
   cancel = (e) => {
-    message.success("Good Choose");
+    message.success("Good Choice");
   };
 
   confirm = (e) => {
@@ -89,38 +93,39 @@ class Profile extends Component {
 
   displayProfile = (profile) => {
     return (
-      <Box
-        sx={{
+      <div
+        style={{
           border: "1px solid #e0e0e0",
-          borderRadius: 2,
-          padding: 3,
-          boxShadow: 1,
+          borderRadius: 8,
+          padding: 24,
+          boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)",
           maxWidth: "800px",
           margin: "auto",
+          backgroundColor: "#fff"
         }}
       >
-        <Typography variant="h5" gutterBottom>
+        <Title level={4} style={{ marginBottom: 16 }}>
           Profile Information
-        </Typography>
-        <Divider sx={{ marginY: 2 }} />
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6}>
+        </Title>
+        <Divider style={{ margin: "16px 0" }} />
+        <Row gutter={[16, 16]}>
+          <Col xs={24} md={12}>
             <ProfileField label="Address" value={profile.address} />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Col>
+          <Col xs={24} md={12}>
             <ProfileField label="Website" value={profile.website} />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Col>
+          <Col xs={24} md={12}>
             <ProfileField label="Bio" value={profile.bio} />
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Col>
+          <Col xs={24} md={12}>
             <ProfileField label="Created" value={profile.created} />
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+          </Col>
+          <Col xs={24}>
+            <Text type="secondary" style={{ fontSize: '1rem', display: 'block', marginBottom: 8 }}>
               Social Media
-            </Typography>
-            <Divider sx={{ marginY: 2 }} />
+            </Text>
+            <Divider style={{ margin: "16px 0" }} />
             {profile.socialMedia && (
               <div>
                 <ProfileField
@@ -145,29 +150,30 @@ class Profile extends Component {
                 />
               </div>
             )}
-          </Grid>
-          <Button
-            variant="contained"
-            onClick={this.handleOpen}
-            style={{ margin: "auto" }}
-          >
-            Edit Profile
-          </Button>
-          <Popconfirm
-            title="Do u want to delete youe account"
-            description="Are you sure to delete this account?"
-            onConfirm={this.confirm}
-            onCancel={this.cancel}
-            okText="Yes"
-            cancelText="No"
-          >
-            <Button variant="contained" style={{ margin: "auto" }}>
-              Delete
+          </Col>
+          <div style={{ display: 'flex', gap: '10px', margin: 'auto' }}>
+            <Button
+              type="primary"
+              onClick={this.handleOpen}
+            >
+              Edit Profile
             </Button>
-          </Popconfirm>
-        </Grid>
+            <Popconfirm
+              title="Do you want to delete your account?"
+              description="Are you sure to delete this account?"
+              onConfirm={this.confirm}
+              onCancel={this.cancel}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="primary" danger>
+                Delete
+              </Button>
+            </Popconfirm>
+          </div>
+        </Row>
         {this.renderModal()}
-      </Box>
+      </div>
     );
   };
 
@@ -175,117 +181,116 @@ class Profile extends Component {
     return (
       <Modal
         open={this.state.open}
-        onClose={this.handleClose}
-        closeAfterTransition
+        onCancel={this.handleClose}
+        title="Edit Profile"
+        footer={null}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "60%",
-            transform: "translate(-50%, -50%)",
-            width: { xs: "90%", sm: 500, md: 700 },
-            height: { xs: "90%", sm: 500, md: 700 },
-            bgcolor: "background.paper",
-            boxShadow: 24,
-            p: 4,
-            overflow: "scroll",
-            overflowX: "hidden",
-          }}
-        >
-          <Typography variant="h6" component="h2">
-            Edit Profile
-          </Typography>
-          <form onSubmit={this.onSubmit}>
-            <TextField
-              fullWidth
-              label="Website"
+        <form onSubmit={this.onSubmit}>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Website</Text>
+            <Input
               name="website"
               value={this.state.website}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Website"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="Address"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Address</Text>
+            <Input
               name="address"
               value={this.state.address}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Address"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="Bio"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Bio</Text>
+            <TextArea
               name="bio"
-              multiline
               rows={4}
               value={this.state.bio}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Bio"
+              style={{ width: "100%" }}
             />
-            <Typography variant="h6" gutterBottom>
-              Social Media
-            </Typography>
-            <TextField
-              fullWidth
-              label="Facebook"
+          </div>
+
+          <Title level={5} style={{ marginTop: 24, marginBottom: 16 }}>
+            Social Media
+          </Title>
+
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Facebook</Text>
+            <Input
               name="facebook"
               value={this.state.facebook}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Facebook"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="Twitter"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Twitter</Text>
+            <Input
               name="twitter"
               value={this.state.twitter}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Twitter"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="Instagram"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>Instagram</Text>
+            <Input
               name="instagram"
               value={this.state.instagram}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="Instagram"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="YouTube"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>YouTube</Text>
+            <Input
               name="youtube"
               value={this.state.youtube}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="YouTube"
+              style={{ width: "100%" }}
             />
-            <TextField
-              fullWidth
-              label="LinkedIn"
+          </div>
+          <div style={{ marginBottom: 16 }}>
+            <Text strong>LinkedIn</Text>
+            <Input
               name="linkedin"
               value={this.state.linkedin}
               onChange={this.onChange}
-              margin="normal"
+              placeholder="LinkedIn"
+              style={{ width: "100%" }}
             />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                marginTop: 2,
-              }}
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              marginTop: 24,
+              gap: 8
+            }}
+          >
+            <Button
+              onClick={this.handleClose}
             >
-              <Button
-                onClick={this.handleClose}
-                variant="contained"
-                color="primary"
-              >
-                Cancel
-              </Button>
-              <Button type="submit" variant="contained" color="primary">
-                Save Profile
-              </Button>
-            </Box>
-          </form>
-        </Box>
+              Cancel
+            </Button>
+            <Button type="primary" htmlType="submit">
+              Save Profile
+            </Button>
+          </div>
+        </form>
       </Modal>
     );
   };
@@ -303,11 +308,11 @@ class Profile extends Component {
           <Fragment>{this.displayProfile(this.state.profile)}</Fragment>
         ) : (
           <Fragment>
-            <Typography variant="h4" align="center">Create a profile</Typography>
+            <Title level={3} style={{ textAlign: "center" }}>Create a profile</Title>
             <Link
               className="btn btn-primary"
               to="/dashboard/addprofile"
-              style={{ fontSize: "15px", border: "none", width: "20%", height: "auto" }}
+              style={{ fontSize: "15px", border: "none", width: "auto", padding: "10px 20px", height: "auto" }}
             >
               Click Here To Create Profile
             </Link>
@@ -323,14 +328,15 @@ const ProfileField = ({ label, value }) => (
     style={{
       display: "flex",
       flexDirection: "row",
+      marginBottom: 8
     }}
   >
-    <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+    <Text type="secondary" style={{ marginRight: 8 }}>
       {label}:
-    </Typography>
-    <Typography variant="body1" paragraph>
+    </Text>
+    <Text>
       {value}
-    </Typography>
+    </Text>
   </div>
 );
 

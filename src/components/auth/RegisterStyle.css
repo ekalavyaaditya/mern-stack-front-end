@@ -17,6 +17,7 @@
   height: auto;
   border: solid 1px var(--blur);
   border-radius: 5%;
+  padding: 20px;
 }
 
 .heading {
@@ -41,4 +42,10 @@ Input {
 
 .input-container {
   margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .Main {
+    width: 90%;
+  }
 }

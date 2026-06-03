@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { logout } from "../../actions/authAction";
-import LogoutIcon from '@mui/icons-material/Logout';
+import { LogoutOutlined } from "@ant-design/icons";
 import "./Navstyle.css";
 
 const Navbar = ({ auth: { isAuthenticated }, logout }) => {
@@ -23,7 +23,7 @@ const Navbar = ({ auth: { isAuthenticated }, logout }) => {
       )
       }
       <Link onClick={handleLogout} to="/" className="link">
-        <LogoutIcon />
+        <LogoutOutlined />
         Logout
       </Link>
     </>
